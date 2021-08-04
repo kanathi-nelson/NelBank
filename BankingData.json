@@ -1,0 +1,29 @@
+[
+  {
+    "AccountNo": "01003818109012",
+    "AccountType": "Savings Account",
+    "AccountBalance": 2000200
+
+  },
+  {
+    "AccountNo": "01002988387121",
+    "AccountType": "Savings Account",
+    "AccountBalance": 1784000
+
+  },
+  {
+    "AccountNo": "8173038180903212",
+    "AccountType": "Current Account",
+    "AccountBalance": 320000
+  },
+  {
+    "AccountNo": "0130198109012",
+    "AccountType": "Savings Account",
+    "AccountBalance": 39103200
+  },
+  {
+    "AccountNo": "030191003109012",
+    "AccountType": "Current Account",
+    "AccountBalance": 871000
+  }
+]

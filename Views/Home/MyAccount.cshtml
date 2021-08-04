@@ -1,0 +1,73 @@
+﻿@model NelBank.Models.Accounts
+@{
+    ViewData["Title"] = "Account details";
+}
+<div class="row justify-content-center">
+    <div class="col-10 col-md-10   widget widget_tally_box">
+        <div class="x_panel">
+            <div class="x_content">
+
+                <div class="flex">
+                    <ul class="list-inline widget_profile_box">
+
+
+                        <li>
+                            <img src="~/images/img.png" alt="..." class="img-circle profile_img">
+                        </li>
+
+                    </ul>
+                </div>
+
+                <h3 style="text-align:center;">@Model.User.FirstName  @Model.User.LastName</h3>
+                <h4 style="text-align:center;"><b>Account No:</b> @Model.AccountNo</h4>
+
+                <div class="flex">
+                    <ul class="list-inline count2">
+                        <li>
+                            <h3>@Convert.ToDecimal(Model.AccountBalance).ToString("N0")</h3>
+                            <span>Account Bal. (ksh)</span>
+                        </li>
+                        <li>
+
+                        </li>
+                        <li>
+                            <h3>0</h3>
+                            <span>Loans Bal. (ksh)</span>
+                        </li>
+
+                    </ul>
+                </div>
+                <h5 style="text-align:center;font-weight:700;text-decoration:underline;">Recent Activity</h5>
+                <table>
+
+                </table>
+                <div>
+                    <ul class="list-inline widget_tally">
+                        <li style="height:25px;">
+                            <p>
+                                <span style="font-style:italic"> <b>Transaction </b></span>&nbsp;
+                                <span style="font-style:italic"> <b>Date</b></span>  &nbsp;
+                                <span style="font-style:italic"><b>Amount </b></span>
+                            </p>
+                        </li>
+                        @foreach (var a in ViewBag.MyAccs)
+                        {
+                            <li style="height:25px;">
+                                <p>
+                                    <span>@a.TransactionTypes.Name</span>&nbsp;
+                                    <span>@a.TransactionDate.ToShortDateString()</span>
+                                    <span>@a.Amount.ToString("N0")</span>
+
+                                </p>
+                            </li>
+
+                        }
+                       
+
+                    </ul>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>

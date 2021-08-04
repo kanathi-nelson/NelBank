@@ -1,0 +1,286 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- top tiles -->
+<div class="row justify-content-center" style="margin-top:40px;">
+
+    <a>
+    <div class="col-3 col-md-3   widget widget_tally_box">
+
+        <div class="x_panel ui-ribbon-container fixed_height_200">
+            <div class="x_title">
+                <h2><b>Deposit funds</b></h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+                @*<div style="text-align: center; margin-bottom: 17px">
+                        <span class="chart" data-percent="86">
+                            <span class="percent"></span>
+                        </span>
+                    </div>*@
+                <span class="image thumbnail">
+                    <img style="display:flex; width: 80%;height:120px; justify-content:center;" src="~/images/Deposit.png" alt="image" />
+
+                </span>
+                @*<p>Short Description</p>*@
+
+
+            </div>
+        </div>
+
+    </div>
+    </a>
+    <a asp-action="AccountWithdrawal" asp-controller="Accounts">
+        <div class="col-3 col-md-3   widget widget_tally_box">
+            <div class="x_panel ui-ribbon-container fixed_height_200">
+
+                <div class="x_title">
+                    <h2><b>Withdraw</b></h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                    @*<div style="text-align: center; margin-bottom: 17px">
+                            <span class="chart" data-percent="86">
+                                <span class="percent"></span>
+                            </span>
+                        </div>*@
+
+                    @*<p>Short Description</p>*@
+                    <span class="image thumbnail">
+                        <img style="display:flex; width: 80%;height:120px; justify-content:center;" src="~/images/Withdraw.png" alt="image" />
+
+                    </span>
+
+
+                </div>
+            </div>
+        </div>
+    </a>
+    <a asp-action="AccountTransfer" asp-controller="Accounts">
+        <div class="col-3 col-md-3   widget widget_tally_box">
+            <div class="x_panel ui-ribbon-container fixed_height_200">
+
+                <div class="x_title">
+                    <h2><b>Account Transfer</b></h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                    <span class="image thumbnail">
+                        <img style="display:flex; width: 80%;height:120px; justify-content:center;" src="~/images/transfer.png" alt="image" />
+
+                    </span>
+
+
+                </div>
+            </div>
+        </div>
+    </a>
+    <a>
+        <div class="col-3 col-md-3   widget widget_tally_box">
+            <div class="x_panel ui-ribbon-container fixed_height_200">
+
+                <div class="x_title">
+                    <h2><b>Loans</b></h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+
+                    <span class="image thumbnail">
+                        <img style="display:flex; width: 80%;height:120px; justify-content:center;" src="~/images/Loans.png" alt="image" />
+
+                    </span>
+
+
+                </div>
+            </div>
+        </div>
+    </a>
+
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-5 col-sm-5  ">
+        <div class="x_panel">
+
+            <div class="x_title">
+                <h2>My recent Activity</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    @*<li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Settings 1</a>
+                                <a class="dropdown-item" href="#">Settings 2</a>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>*@
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content">
+                <ul class="list-unstyled timeline">
+                    <li>
+                        <div class="block">
+                            <div class="tags">
+                                <a href="" class="tag">
+                                    <span>Entertainment</span>
+                                </a>
+                            </div>
+                            <div class="block_content">
+                                <h2 class="title">
+                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                </h2>
+                                <div class="byline">
+                                    <span>13 hours ago</span> by <a>Jane Smith</a>
+                                </div>
+                                <p class="excerpt">
+                                    Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="block">
+                            <div class="tags">
+                                <a href="" class="tag">
+                                    <span>Entertainment</span>
+                                </a>
+                            </div>
+                            <div class="block_content">
+                                <h2 class="title">
+                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                </h2>
+                                <div class="byline">
+                                    <span>13 hours ago</span> by <a>Jane Smith</a>
+                                </div>
+                                <p class="excerpt">
+                                    Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="block">
+                            <div class="tags">
+                                <a href="" class="tag">
+                                    <span>Entertainment</span>
+                                </a>
+                            </div>
+                            <div class="block_content">
+                                <h2 class="title">
+                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                </h2>
+                                <div class="byline">
+                                    <span>13 hours ago</span> by <a>Jane Smith</a>
+                                </div>
+                                <p class="excerpt">
+                                    Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5 col-sm-5  ">
+        <div class="x_panel">
+
+            <div class="x_title">
+                <h2>My recent Activity</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    @*<li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Settings 1</a>
+                                <a class="dropdown-item" href="#">Settings 2</a>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="close-link"><i class="fa fa-close"></i></a>
+                        </li>*@
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content">
+                <ul class="list-unstyled timeline">
+                    <li>
+                        <div class="block">
+                            <div class="tags">
+                                <a href="" class="tag">
+                                    <span>Entertainment</span>
+                                </a>
+                            </div>
+                            <div class="block_content">
+                                <h2 class="title">
+                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                </h2>
+                                <div class="byline">
+                                    <span>13 hours ago</span> by <a>Jane Smith</a>
+                                </div>
+                                <p class="excerpt">
+                                    Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="block">
+                            <div class="tags">
+                                <a href="" class="tag">
+                                    <span>Entertainment</span>
+                                </a>
+                            </div>
+                            <div class="block_content">
+                                <h2 class="title">
+                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                </h2>
+                                <div class="byline">
+                                    <span>13 hours ago</span> by <a>Jane Smith</a>
+                                </div>
+                                <p class="excerpt">
+                                    Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="block">
+                            <div class="tags">
+                                <a href="" class="tag">
+                                    <span>Entertainment</span>
+                                </a>
+                            </div>
+                            <div class="block_content">
+                                <h2 class="title">
+                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                </h2>
+                                <div class="byline">
+                                    <span>13 hours ago</span> by <a>Jane Smith</a>
+                                </div>
+                                <p class="excerpt">
+                                    Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+</div>

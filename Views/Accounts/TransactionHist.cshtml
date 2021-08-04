@@ -1,0 +1,49 @@
+﻿@model IEnumerable<NelBank.Models.Transactions>
+<div class="col-md-10 col-sm-10  ">
+    <div class="x_panel">
+        <div class="x_title">
+            <h4>Transaction History</h4>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Transaction type</th>
+                        <th>Bank</th>
+                        <th>From Account</th>
+                        <th>To Account</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>@item.TransactionTypes.Name</td>
+                        <td>@item.Bank</td>
+                        <td>@item.Accounts.AccountNo</td>
+                        <td>@item.CreditedAccount</td>
+                        <td>@item.Amount.Value.ToString("N0")</td>
+                        <td>@item.TransactionDate.GetValueOrDefault().ToShortDateString()</td>
+                        <td>@item.TransactionTime.GetValueOrDefault().ToShortTimeString()</td>
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NelBank", "NelBank.csproj", "{F1F942BD-1C25-4F7B-9FBA-1F5AFB615017}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1F942BD-1C25-4F7B-9FBA-1F5AFB615017}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1F942BD-1C25-4F7B-9FBA-1F5AFB615017}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1F942BD-1C25-4F7B-9FBA-1F5AFB615017}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1F942BD-1C25-4F7B-9FBA-1F5AFB615017}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3969FA28-B69D-42C4-91FF-7837048F3FCF}
+	EndGlobalSection
+EndGlobal
