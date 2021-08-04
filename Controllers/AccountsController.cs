@@ -76,7 +76,7 @@ namespace NelBank.Controllers
             if (ModelState.IsValid)
             {
                 
-                var new_ = AddTransaction(accountTransfer);
+                var new_ = new BankApiController(_signInManager,generalInterface_,_logger,_context,_userManager).AddTransaction(accountTransfer);
                 var rst = new_ as ObjectResult;
                 var myval = rst.Value;
                 string stringval = myval.ToString();
@@ -94,70 +94,7 @@ namespace NelBank.Controllers
             return View(accountTransfer);
         }
 
-        public IActionResult AddTransaction(AccountTransferViewmodel accountTransfer)
-        {
-            if(accountTransfer!=null)
-            {
-                ApplicationUser usa = new ApplicationUser();
-                decimal bal = 0;
-                if (accountTransfer.UserId == null || accountTransfer.UserId<1)
-                {
-                    usa = generalInterface_.GetLoggedinUser().Result;
-                    accountTransfer.UserId = usa.Id;
-                }
-                var account_ = _context.Accounts
-                    .Where(o => o.OwnerId == usa.Id)
-                    .FirstOrDefault();
-
-                if (account_ != null)
-                {
-                    bal = Convert.ToDecimal(account_.AccountBalance);
-                    accountTransfer.AccountId = account_.Id;
-                    accountTransfer.FromAccount = account_.AccountNo;
-                }
-                if (bal < accountTransfer.Amount)
-                {
-                    return BadRequest("Failed, you have insifficient funds in your account.");
-                }
-                int? acctype = null;
-                var type = _context.TransactionTypes.Where(y => y.Name.ToUpper().Contains("TRANSFER")).FirstOrDefault();
-                if (type != null)
-                {
-                    acctype = type.Id;
-                }
-                Transactions transactions = new Transactions 
-                { 
-                    Account = accountTransfer.AccountId,
-                    Amount = accountTransfer.Amount,
-                    DebitedAccount = accountTransfer.FromAccount,
-                    CreditedAccount = accountTransfer.AccountNo,
-                    Bank = accountTransfer.Bank,
-                    Debit = true,
-                    IsInternal = true,
-                    TransactionDate = DateTime.Now,
-                    TransactionTime = DateTime.Now,
-                    UserId = accountTransfer.UserId,
-                    TransactionType = acctype             
-                };
-                _context.Add(transactions);
-                _context.SaveChanges();
-
-                var acc_ = _context.Accounts
-                    .Where(T => T.Id == accountTransfer.AccountId)
-                    .FirstOrDefault();
-                if(acc_!=null)
-                {
-                    var mybal = Convert.ToDecimal(acc_.AccountBalance);
-                    mybal -= accountTransfer.Amount;
-                    acc_.AccountBalance = mybal.ToString();
-                    _context.Update(acc_);
-                    _context.SaveChanges();
-                }
-
-                return Ok("done");
-            }
-            return BadRequest("Failed, null request");
-        }
+       
 
         // GET: AccountsController/Details/5
         public async Task<ActionResult> TransactionHist()
