@@ -10,7 +10,7 @@ namespace NelBank.Viewmodels
           public string Bank { get; set; }
           public decimal Amount { get; set; }
           public string AccountNo { get; set; }
-          public int? UserId { get; set; }
+          public int UserId { get; set; }
           public int AccountId { get; set; }
           public string FromAccount { get; set; }
     }

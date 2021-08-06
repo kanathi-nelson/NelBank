@@ -4,7 +4,16 @@
     ViewData["Title"] = "Login";
 
 }
-
+<script>
+    function IsCapsLockOn(event) {
+        if (event.getModifierState("CapsLock")) {  // If "caps lock" is pressed, display the warning text
+            document.getElementById("spnWarning").style.display = "block";
+        }
+        else {
+            document.getElementById("spnWarning").style.display = "none";
+        }
+    }
+</script>
 <div>
     <a class="hiddenanchor" id="signup"></a>
     <a class="hiddenanchor" id="signin"></a>
@@ -25,6 +34,7 @@
                             <section class="login_content">
                                 <form method="post" asp-action="Login">
                                     <h1>Login</h1>
+                                    <p><span id="spnWarning" style='display:none;color:red'>WARNING! Caps lock is ON.</span></p>
                                     <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -32,7 +42,7 @@
                                         <input type="text" asp-for="Email" class="form-control" placeholder="Email" required="" />
                                     </div>
                                     <div>
-                                        <input type="password" asp-for="Password" class="form-control" placeholder="Password" required="" />
+                                        <input type="password" onclick="IsCapsLockOn(event)" onkeyup="IsCapsLockOn(event)" asp-for="Password" class="form-control" placeholder="Password" required="" />
                                     </div>
                                     <div>
                                         <button class="btn btn-info submit" type="submit">Log in</button>

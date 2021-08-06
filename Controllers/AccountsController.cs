@@ -61,8 +61,14 @@ namespace NelBank.Controllers
         {
             return View();
         }
-          // GET: AccountsController/Details/5
-          [HttpGet]
+        // GET: AccountsController/Details/5
+        public ActionResult TransferConfirmation()
+        {
+            ViewBag.message = "Successfully completed transaction. Thank you for banking with us!";
+            return View();
+        }
+        // GET: AccountsController/Details/5
+        [HttpGet]
         public ActionResult AccountTransfer()
         {
             ViewData["MyBank"] = new SelectList(FillBanks(), "Select Bank");
@@ -88,7 +94,7 @@ namespace NelBank.Controllers
 
                 }else
                 {
-                    return RedirectToAction("TransactionHist");
+                    return RedirectToAction("TransferConfirmation");
                 }
             }
             return View(accountTransfer);
@@ -110,9 +116,35 @@ namespace NelBank.Controllers
             return View(mytrans_);
         }
            // GET: AccountsController/Details/5
+        [HttpGet]
         public ActionResult AccountWithdrawal()
         {
+
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult AccountWithdrawal(FundsWithdrawal fundsWithdrawal)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var new_ = new BankApiController(_signInManager, generalInterface_, _logger, _context, _userManager).TransferFunds(fundsWithdrawal);
+                var rst = new_ as ObjectResult;
+                var myval = rst.Value;
+                string stringval = myval.ToString();
+                if (stringval.ToUpper().Contains("FAILED"))
+                {
+                    ModelState.AddModelError(string.Empty, stringval);
+                    return View(fundsWithdrawal);
+
+                }
+                else
+                {
+                    return RedirectToAction("TransferConfirmation");
+                }
+            }
+            return View(fundsWithdrawal);
         }
 
         // GET: AccountsController/Create

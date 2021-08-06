@@ -14,6 +14,7 @@ namespace NelBank.Data
         {
              
         }
+        public DbSet<AtmData> AtmData { get; set; }
         public DbSet<Accounts> Accounts { get; set; }
         public DbSet<Transactions> Transactions { get; set; }
         public DbSet<TransactionTypes> TransactionTypes { get; set; }

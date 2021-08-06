@@ -49,42 +49,54 @@ namespace NelBank.Controllers
 
         [Produces("application/json")]
         [HttpGet]
-        public async Task<IActionResult> ConfirmLogin(string Username, string Password)
-        {           
-            var usern_ = Username.ToUpper();
-            var user_ = _context.Users
-                .Where(u => u.Email
-                .ToUpper()
-                .Contains(usern_))
-                .FirstOrDefault();
-
-            if (user_ != null)
+        public IActionResult ConfirmLogin(string u1,string p1)
+        {
+            try
             {
-                var model =await UserAuthentication(Username, Password);
-                if (model == true)
-                {
-                    int userid = 0;
-                    userid = user_.Id;
-                    var acc = GetAccounts(userid);
-                    AccountLoginResp accountLoginResp = new AccountLoginResp()
-                    {
-                        AccountId = acc.Id,
-                        FromAccount = acc.AccountNo,
-                        UserId = userid,
-                        Username = user_.FirstName + " " + user_.LastName
-                    };
-                    return Ok(accountLoginResp);
+                var usern_ = u1.ToUpper();
+                var user_ = _context.Users
+                    .Where(u => u.Email
+                    .ToUpper()
+                    .Contains(usern_))
+                    .FirstOrDefault();
 
+                if (user_ != null)
+                {
+                    var model = UserAuthentication(u1, p1).Result;
+                    if (model == true)
+                    {
+                        int userid = 0;
+                        userid = user_.Id;
+                        var acc = GetAccounts(userid);
+                        AccountLoginResp accountLoginResp = new AccountLoginResp()
+                        {
+                            AccountId = acc.Id,
+                            FromAccount = acc.AccountNo,
+                            UserId = userid,
+                            Username = user_.FirstName + " " + user_.LastName,
+                            Status= string.Empty,
+                            Message= string.Empty,
+                            AccountBalance = acc.AccountBalance,
+                            AccountNo= acc.AccountNo,
+                            AccountType= acc.AccountType
+                        };
+                        return Ok(accountLoginResp);
+
+                    }
+                    else
+                    {
+                        return BadRequest("Access denied.");
+
+                    }
                 }
                 else
                 {
-                    return BadRequest("Access denied.");
-
+                    return NotFound("Account not found.");
                 }
             }
-            else
+            catch(Exception es)
             {
-                return NotFound("Account not found.");
+                return BadRequest("An exception occurred.");
             }
         }
         async Task<bool> UserAuthentication(string uname, string pass)
@@ -119,14 +131,20 @@ namespace NelBank.Controllers
             if (accountTransfer != null)
             {
                 ApplicationUser usa = new ApplicationUser();
+                int myuserid_;
                 decimal bal = 0;
                 if (accountTransfer.UserId == null || accountTransfer.UserId < 1)
                 {
                     usa = generalInterface_.GetLoggedinUser().Result;
                     accountTransfer.UserId = usa.Id;
+                    myuserid_ = usa.Id;
+                }
+                else
+                {
+                    myuserid_ =accountTransfer.UserId;
                 }
                 var account_ = _context.Accounts
-                    .Where(o => o.OwnerId == usa.Id)
+                    .Where(o => o.OwnerId == myuserid_)
                     .FirstOrDefault();
 
                 if (account_ != null)
@@ -156,7 +174,7 @@ namespace NelBank.Controllers
                     IsInternal = true,
                     TransactionDate = DateTime.Now,
                     TransactionTime = DateTime.Now,
-                    UserId = accountTransfer.UserId,
+                    UserId = myuserid_,
                     TransactionType = acctype
                 };
                 _context.Add(transactions);
@@ -171,6 +189,82 @@ namespace NelBank.Controllers
                     mybal -= accountTransfer.Amount;
                     acc_.AccountBalance = mybal.ToString();
                     _context.Update(acc_);
+                    _context.SaveChanges();
+                }
+
+                return Ok("done");
+            }
+            return BadRequest("Failed, null request");
+        }
+        [HttpPost]
+        public IActionResult TransferFunds(FundsWithdrawal fundsWithdrawal)
+        {
+            if (fundsWithdrawal != null)
+            {
+                ApplicationUser usa = new ApplicationUser();
+                int myuserid_;
+                decimal bal = 0;
+                if (fundsWithdrawal.UserId == null || fundsWithdrawal.UserId < 1)
+                {
+                    usa = generalInterface_.GetLoggedinUser().Result;
+                    fundsWithdrawal.UserId = usa.Id;
+                    myuserid_ = usa.Id;
+                }
+                else
+                {
+                    myuserid_ = fundsWithdrawal.UserId.Value;
+                }
+                var account_ = _context.Accounts
+                    .Where(o => o.OwnerId == myuserid_)
+                    .FirstOrDefault();
+                 var atmbal = _context.AtmData                 
+                    .FirstOrDefault();
+
+                if (account_ != null)
+                {
+                    bal = Convert.ToDecimal(account_.AccountBalance);
+                }  
+                if (atmbal != null)
+                {
+                    if(atmbal.AccountBalance<fundsWithdrawal.Amount)
+                    {
+                        return BadRequest("Failed, No cash in the ATM.");
+                    }
+                }
+                if (bal < fundsWithdrawal.Amount)
+                {
+                    return BadRequest("Failed, you have insifficient funds in your account.");
+                }
+
+                int? acctype = null;
+                var type = _context.TransactionTypes.Where(y => y.Name.ToUpper().Contains("THDRAW")).FirstOrDefault();
+                if (type != null)
+                {
+                    acctype = type.Id;
+                }
+                Transactions transactions = new Transactions
+                {
+                    Account = account_.Id,
+                    Amount = fundsWithdrawal.Amount,
+                    DebitedAccount = account_.AccountNo,
+                    CreditedAccount = "Cash",
+                    Bank = "ATM",
+                    Debit = true,
+                    TransactionDate = DateTime.Now,
+                    TransactionTime = DateTime.Now,
+                    UserId =myuserid_,
+                    TransactionType = acctype
+                };
+                _context.Add(transactions);
+                _context.SaveChanges();
+
+                
+                if (account_ != null)
+                {
+                    var mybal = Convert.ToDecimal(account_.AccountBalance);
+                    mybal -= fundsWithdrawal.Amount.Value;
+                    account_.AccountBalance = mybal.ToString();
+                    _context.Update(account_);
                     _context.SaveChanges();
                 }
 

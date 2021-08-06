@@ -337,6 +337,27 @@ namespace NelBank.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("NelBank.Models.AtmData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("AccountBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("TimeUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AtmData");
+                });
+
             modelBuilder.Entity("NelBank.Models.TransactionTypes", b =>
                 {
                     b.Property<int>("Id")
