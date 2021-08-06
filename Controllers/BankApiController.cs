@@ -27,14 +27,7 @@ namespace NelBank.Controllers
         private readonly ApplicationDbContext _context;
         public readonly GeneralInterface generalInterface_;
         public Dictionary<string, string> DataItems_ = new Dictionary<string, string>();
-
-
-
-
-        public string ReturnUrl { get; set; }
-        [TempData]
-        public string ErrorMessage { get; set; }
-
+       
         public BankApiController(SignInManager<ApplicationUser> signInManager, GeneralInterface generalinter_,
             ILogger<AccountsController> logger,
             ApplicationDbContext context,
@@ -46,6 +39,11 @@ namespace NelBank.Controllers
             _signInManager = signInManager;
             _logger = logger;
         }
+
+        public string ReturnUrl { get; set; }
+        [TempData]
+        public string ErrorMessage { get; set; }
+
 
         [Produces("application/json")]
         [HttpGet]
@@ -273,29 +271,6 @@ namespace NelBank.Controllers
             return BadRequest("Failed, null request");
         }
 
-        // GET api/<BankApiController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<BankApiController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<BankApiController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<BankApiController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        
     }
 }
