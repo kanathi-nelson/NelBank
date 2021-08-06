@@ -8,9 +8,11 @@ using NelBank.Data;
 using NelBank.Interfaces;
 using NelBank.Models;
 using NelBank.Viewmodels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace NelBank.Controllers
@@ -63,9 +65,32 @@ namespace NelBank.Controllers
         }
           // GET: AccountsController/Details/5
           [HttpGet]
-        public ActionResult AccountTransfer()
+        public async Task<ActionResult> AccountTransferAsync()
         {
-            ViewData["MyBank"] = new SelectList(FillBanks(), "Select Bank");
+            HttpClient client_ = new HttpClient();
+                try
+                {                    
+                    string fullapi = "http://196.201.224.102:8089/api/BankApi/ConfirmLogin?u1=" + "nelsonkanathi@gmail.com" + "&p1=" + "Admin@1123";
+                    Uri uri = new Uri(string.Format(fullapi, string.Empty));
+                    HttpResponseMessage response = await client_.GetAsync(uri);
+                    string content = await response.Content.ReadAsStringAsync();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        AccountLoginResp vals1 = JsonConvert.DeserializeObject<AccountLoginResp>(content);
+                    }
+                    else
+                    {
+                        AccountLoginResp accountLoginResp = new AccountLoginResp();
+                        accountLoginResp.Status = "failed";
+                        accountLoginResp.Message = content;
+                    }
+                }
+                catch
+                {
+                    
+                }
+
+                       ViewData["MyBank"] = new SelectList(FillBanks(), "Select Bank");
             return View();
         } 
         // GET: AccountsController/Details/5
